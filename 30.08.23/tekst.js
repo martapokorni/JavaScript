@@ -1,0 +1,12 @@
+var myString = "";
+console.log(myString);
+myString = "Lorem ipsum";
+console.log(myString);
+myString = "    Lorem ipsum";
+console.log(myString);
+var x = "Ovo je vrlo dugi string" + "koji je u dva reda" + "jer je";
+console.log(x);
+x = "Danas sam 'lud'";
+console.log(x);
+console.log(myString.length);
+console.log(myString.toUpperCase());
