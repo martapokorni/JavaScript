@@ -4,21 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="script.js"></script>
+    <style>
+      .loader {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid #456b93;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+        margin-top: 20px;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>TV show tražilica</h1>
-    <input type="text" id="search" />
-    <div id="errorM"></div>
-    <ul id="results"></ul>
-    <table id="results" border="1">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Genres</th>
-        <th>Language</th>
-      </tr>
+    <h1>TV Show Search</h1>
+    <input id="showInput" type="text" />
+    <button class="search">Traži</button>
+    <div id="loadingMessage">
+      <div class="loader"></div>
+      Loading...
+    </div>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Naziv</th>
+          <th>Rating</th>
+          <th>Žanr</th>
+          <th>Sažetak</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
   </body>
+  <script src="script.js"></script>
 </html>
