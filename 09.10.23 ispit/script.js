@@ -1,13 +1,13 @@
 var searchButton = document.querySelector(".search");
-var showNameInput = document.querySelector("#showInput");
-var loadingMessage = document.querySelector("#loadingMessage");
+var showNameDod = document.querySelector("#showInput");
+var loading = document.querySelector("#loading");
 var table = document.querySelector("table");
 
 searchButton.addEventListener("click", () => {
-  const searchTerm = showNameInput.value.toLowerCase();
+  const searchTerm = showNameDod.value.toLowerCase();
   const url = `https://api.tvmaze.com/search/shows?q=${searchTerm}`;
 
-  loadingMessage.style.display = "block";
+  loading.style.display = "block";
 
   fetch(url)
     .then((response) => response.json())
@@ -15,49 +15,48 @@ searchButton.addEventListener("click", () => {
       const tbody = document.querySelector("tbody");
       tbody.innerHTML = "";
 
-      const matchingShows = data.filter((result) => {
+      const matching = data.filter((result) => {
         const showName = result.show.name.toLowerCase();
         return showName.includes(searchTerm);
       });
       const messageDiv = document.createElement("div");
       messageDiv.style.display = "block";
 
-      if (matchingShows.length === 0) {
+      if (matching.length === 0) {
         messageDiv.textContent = "Nema rezultata, molim ponoviti unos!";
         table.parentNode.insertBefore(messageDiv, table.nextSibling);
       } else {
-        matchingShows.forEach((result) => {
+        matching.forEach((result) => {
           const show = result.show;
           const row = document.createElement("tr");
 
           const nameShow = document.createElement("td");
           nameShow.innerText = show.name;
 
-          const scoreEl = document.createElement("td");
-          scoreEl.innerText = show.rating ? show.rating.average : "N/A";
+          const ratingShow = document.createElement("td");
+          ratingShow.innerText = show.rating ? show.rating.average : "N/A";
 
-          const genreEl = document.createElement("td");
-          genreEl.innerText = show.genres.join(", ");
+          const zanr = document.createElement("td");
+          zanr.innerText = show.genres.join(", ");
 
-          const summaryEl = document.createElement("td");
-          summaryEl.innerHTML = show.summary.replace(/<\/?p>/g, "");
-          summaryEl.innerHTML = summaryEl.innerHTML
+          const sazetak = document.createElement("td");
+          sazetak.innerHTML = show.summary.replace(/<\/?p>/g, "");
+          sazetak.innerHTML = sazetak.innerHTML
             .replace(/<b>/g, "")
             .replace(/<\/b>/g, "");
 
           row.appendChild(nameShow);
-          row.appendChild(scoreEl);
-          row.appendChild(genreEl);
-          row.appendChild(summaryEl);
-
+          row.appendChild(ratingShow);
+          row.appendChild(zanr);
+          row.appendChild(sazetak);
           tbody.appendChild(row);
         });
       }
 
-      loadingMessage.style.display = "none";
+      loading.style.display = "none";
     })
     .catch((error) => {
       console.error(error);
-      loadingMessage.style.display = "none";
+      loading.style.display = "none";
     });
 });
